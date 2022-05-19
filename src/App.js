@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import { fetchNowPlaying } from './services/movieDb';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Search from "./pages/Search";
 import "./index.css";
 
 export default function App() {
@@ -11,10 +12,10 @@ export default function App() {
   const [nowShowing, setNowShowing] = useState();
 
   async function getAppData() {
-    const nowPlayingMovies = await fetchNowPlaying();
+    const nowPlayingMovies = await fetchNowPlaying('BE');
     setNowShowing(nowPlayingMovies);
   }
-  
+
   useEffect(() => {
     getAppData()
   }, [])
@@ -38,7 +39,7 @@ export default function App() {
               />
               <Route
                 exact path='/search'
-                render={() => 'Search'}
+                render={() => <Search />}
               />
               <Route
                 exact path='/favorites'
