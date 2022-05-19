@@ -39,7 +39,7 @@ export default function App() {
               />
               <Route
                 exact path='/search'
-                render={() => <Search />}
+                render={() => <Search nowShowing={nowShowing.results}/>}
               />
               <Route
                 exact path='/favorites'
