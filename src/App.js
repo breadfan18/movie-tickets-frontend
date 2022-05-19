@@ -31,7 +31,6 @@ export default function App() {
                 exact path='/favorites'
                 render={() => 'Favorites'}
               />
-
             </Switch>
           </>
         }
