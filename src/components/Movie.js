@@ -1,9 +1,23 @@
 const Movie = props => {
-    const posterUrl = `https://image.tmdb.org/t/p/original/${props.movie.poster_path}`
+    const posterUrl = `https://image.tmdb.org/t/p/original/${props.movie.poster_path}`;
+
+    const loadingMovie = () => {
+        return <div>
+            <p>Loading Movie...</p>
+        </div>
+
+    }
+
+    const loaded = () => {
+        return <div>
+            <h3>{props.movie.title}</h3>
+            <img src={posterUrl} alt="" style={{ height: '150px' }} />
+        </div>
+    }
+
     return (
         <div>
-            <h3>{props.movie.title}</h3>
-            <img src={posterUrl} alt="" style={{height: '150px'}} />
+            {props.movie && posterUrl ? loaded() : loadingMovie()}
         </div>
     )
 }

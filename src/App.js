@@ -8,8 +8,7 @@ import Search from "./pages/Search";
 import "./index.css";
 
 export default function App() {
-
-  const [nowShowing, setNowShowing] = useState();
+  const [nowShowing, setNowShowing] = useState([]);
 
   async function getAppData() {
     const nowPlayingMovies = await fetchNowPlaying('BE');
@@ -17,7 +16,9 @@ export default function App() {
   }
 
   useEffect(() => {
-    getAppData()
+    setTimeout(() => {
+      getAppData()
+    }, 5000)
   }, [])
 
   console.log('Now showing', nowShowing)
