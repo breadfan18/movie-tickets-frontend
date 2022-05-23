@@ -2,6 +2,9 @@ import Movie from "../components/Movie";
 import * as ReactBootStrap from 'react-bootstrap';
 
 const Search = props => {
+
+    // Need to figure out how to load movies by region
+
     const loading = () => {
         return (
             <>
