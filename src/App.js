@@ -9,19 +9,32 @@ import "./index.css";
 
 export default function App() {
   const [nowShowing, setNowShowing] = useState([]);
+  const [location, setLocation] = useState({});
 
   async function getAppData() {
     const nowPlayingMovies = await fetchNowPlaying('BE');
     setNowShowing(nowPlayingMovies);
   }
 
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((loc) => {
+        setLocation({ lat: loc.coords.latitude, long: loc.coords.longitude });
+      })
+    } else {
+      console.log('GeoLocation not supported by browser');
+    }
+  }
+
   useEffect(() => {
-    setTimeout(() => {
-      getAppData()
-    }, 5000)
+    getLocation();
+    getAppData();
+    // setTimeout(() => {
+    //   getAppData()
+    // }, 5000)
   }, [])
 
-  console.log('Now showing', nowShowing)
+  console.log('Now showing ', nowShowing, 'Location ', location)
 
   return (
     <div>
@@ -40,7 +53,7 @@ export default function App() {
               />
               <Route
                 exact path='/search'
-                render={() => <Search nowShowing={nowShowing.results}/>}
+                render={() => <Search nowShowing={nowShowing.results} />}
               />
               <Route
                 exact path='/favorites'
