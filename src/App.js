@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Route, Switch } from 'react-router-dom';
 import { fetchNowPlaying } from './services/movieDb';
+import { auth } from './services/firebase';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Search from "./pages/Search";
@@ -10,6 +11,7 @@ import "./index.css";
 export default function App() {
   const [nowShowing, setNowShowing] = useState([]);
   const [location, setLocation] = useState({});
+  const [user, setUser] = useState(null);
 
   async function getAppData() {
     const nowPlayingMovies = await fetchNowPlaying('BE');
@@ -29,16 +31,14 @@ export default function App() {
   useEffect(() => {
     getLocation();
     getAppData();
-    // setTimeout(() => {
-    //   getAppData()
-    // }, 5000)
+    auth.onAuthStateChanged(user => setUser(user));
   }, [])
 
-  console.log('Now showing ', nowShowing, 'Location ', location)
+  console.log(user)
 
   return (
     <div>
-      <Header />
+      <Header user={user} />
       <main>
         {
           <>
